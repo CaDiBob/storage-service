@@ -1,4 +1,5 @@
 import os
+import re
 from pprint import pprint
 
 import pandas
@@ -18,14 +19,12 @@ def get_available_nomenclature(data_base):
                     ).to_dict(orient='records')
     for part in parts:
         if part.get('Unnamed: 2') and part.get('Unnamed: 2') != 'Код' and part.get('Unnamed: 1') != 'Номенклатура':
-            pprint(part)
+            code, *_ = re.findall(r'\d+', part.get('Unnamed: 2'))
             part = {
                 'name': part.get('Unnamed: 1'),
-                'code': part.get('Unnamed: 2'),
+                'code': code,
             }
             available_parts.append(part)
-    pprint(available_parts)
-    return
     return available_parts
 
 

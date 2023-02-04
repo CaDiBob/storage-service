@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.db.models import Q
 
@@ -11,8 +12,11 @@ def index(request):
         parts = parts.filter(
             Q(name__icontains=query) | Q(code__icontains=query)
         )
+    paginator = Paginator(parts, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'parts': parts,
+        'page_obj': page_obj,
     }
     return render(
         request,

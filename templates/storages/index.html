@@ -1,5 +1,59 @@
 {% extends '../base.html' %}
 {% block title %}Главная{% endblock %}
 {% block content %}
-<H1>Index</H1>
+<div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-sm-4">
+            <form role="form" class="panel panel-default" method="GET" action="/search">
+              <div class="panel-body">
+                <p>ЗИП</p>
+                <div class="form-group">
+                    <input type="text" name="search" id="" placeholder="Поиск">
+                </div>
+                <button type="submit" class="btn btn-success" style="margin-top:15px; margin-bottom:25px;">Показать</button>
+                <a href="{% url 'index' %}">Назад</a>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-8">
+            <div class="panel panel-default">
+              {% for part in parts %}
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div>
+                        <div class="row">
+                          <div class="col-sm-7">
+                            <p><strong>{{part.name}}</strong></p>
+                          </div>
+                          <div class="col-sm-5">
+                            <p class="text-right"><strong class="nowrap">{{ part.code}}</strong></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <!-- <p>
+                        <span class="label label-success">комнат: {{ flat.rooms_number }}</span>
+                        {% if flat.living_area %}
+                          <span class="label label-primary">{{ flat.living_area }} кв.м.</span>
+                        {% endif %}
+                        <span class="label label-primary">{{ flat.construction_year }} г. постройки</span>
+                      </p> -->
+                    </div>
+                  </div>
+                </div>
+                {% if not foloop.last %}
+                  <hr style="margin:0">
+                {% endif %}
+              {% endfor %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
